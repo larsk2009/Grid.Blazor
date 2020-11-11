@@ -2,6 +2,7 @@
 @using GridShared.Columns
 @implements ICustomGridComponent<Order>
 @inject NavigationManager NavigationManager
+@inject IModalService ModalService
 
 <button class='btn btn-sm btn-primary' @onclick="MyClickHandler">Edit</button>
 
@@ -17,8 +18,11 @@
 
     private void MyClickHandler(MouseEventArgs e)
     {
-        string gridState = Grid.GetState();
-        string returnUrl = (string)Object;
-        NavigationManager.NavigateTo($"/editorder/{Item.OrderID.ToString()}/{returnUrl}/{gridState}");
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(DisplayMessage.Message), "Test message!");
+        ModalService.Show<DisplayMessage>("Hello World!", parameters);
+    //string gridState = Grid.GetState();
+    //string returnUrl = (string)Object;
+    //NavigationManager.NavigateTo($"/editorder/{Item.OrderID.ToString()}/{returnUrl}/{gridState}");
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Globalization;
+using Blazored.Modal;
 using GridShared.Data;
 
 namespace GridBlazorServerSide
@@ -27,6 +28,7 @@ namespace GridBlazorServerSide
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            SharedDbContextUtils.DbProvider = DbProvider.Sqlite;
             services.AddDbContext<NorthwindDbContext>(options =>
             {
                 options.UseGridBlazorDatabase();
@@ -81,6 +83,8 @@ namespace GridBlazorServerSide
                     options.SupportedCultures = supportedCultures;
                     options.SupportedUICultures = supportedCultures;
                 });
+
+            services.AddBlazoredModal();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
